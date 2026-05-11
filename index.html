@@ -4,70 +4,8 @@
     <title>my home
     </title>
   </head>
-  <body>import threading
-import time
-from collections import defaultdict
-
-class NotificationBatcher:
-    def __init__(self, flush_interval=10):
-        self.flush_interval = flush_interval
-        self.notifications = defaultdict(list)
-        self.lock = threading.Lock()
-        self.running = True
-
-        self.worker = threading.Thread(target=self._auto_flush)
-        self.worker.daemon = True
-        self.worker.start()
-
-    def add_notification(self, category, message):
-        with self.lock:
-            self.notifications[category].append(message)
-
-    def flush(self):
-        with self.lock:
-            if not self.notifications:
-                return
-
-            print("\n===== 알림 묶음 =====")
-
-            for category, messages in self.notifications.items():
-                print(f"\n[{category}] {len(messages)}개")
-
-                preview_count = 3
-                for msg in messages[:preview_count]:
-                    print(f"- {msg}")
-
-                if len(messages) > preview_count:
-                    print(f"- 외 {len(messages) - preview_count}건")
-
-            print("====================\n")
-
-            self.notifications.clear()
-
-    def _auto_flush(self):
-        while self.running:
-            time.sleep(self.flush_interval)
-            self.flush()
-
-    def stop(self):
-        self.running = False
-        self.worker.join()
-
-
-# 사용 예시
-if __name__ == "__main__":
-    batcher = NotificationBatcher(flush_interval=5)
-
-    batcher.add_notification("새 메시지", "김철수: 안녕하세요")
-    batcher.add_notification("새 메시지", "이영희: 회의 가능?")
-    batcher.add_notification("새 메시지", "박민수: 자료 보냈어요")
-
-    batcher.add_notification("시스템", "백업 완료")
-    batcher.add_notification("시스템", "업데이트 가능")
-
-    time.sleep(12)
-
-    batcher.stop()
+  <body>
+  5/15에 시작되는 사범체전의 홈페이지에 오신 것을 환영합니다~
   </body>
 
 
